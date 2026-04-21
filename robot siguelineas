@@ -1,107 +1,99 @@
-#include <Servo.h>
-//Inicializo el servo
-Servo servo1;
-Servo motor4;
-Servo motor8;
-//Sensor Ultrasonido pines en este caso pin 4 y 5
-int tg = 11;
-int eco = 10;
-//Variables
-bool p1 =false; //variable prueba del sensor
-int dist = 0; //distancia detectada por el sensor ultrasonido
-int time1 = 0; //tiempo del sonido del sensor
-
-//grados servo
-int gr;
-//espacio libre
-bool placeFree;
-
-//distancia limite
-int distlim=30;
-
-void setup() {
-  Serial.begin(9600);
-  motor4.attach(4);
-  motor8.attach(8);
-  // Configuramos los pines como entradas o salidas
-  //Entradas
-  //Echo del Sensor Ultrasonido
-  pinMode(eco,INPUT);
-  //Salidas
-  //trig Sensor Ultrasonido
-  pinMode(tg,OUTPUT);
-  servo1.attach(12);
-}
-
-void loop() {
-servo1.write(160);//aqui el sensor mira recto
-if (ultra()>10){
-  //este es el caso en el que no hay nada delante
-delante();
-} else {
-  //giramos el sensor a la izquierda
-  servo1.write(360);
-  //comprobamos si hay algo
-  if(ultra()<10){
-     izquierda();
+  #include <Servo.h>
+  Servo servo1;
+  Servo motor4;
+  Servo motor8;
+  int tg = 11;
+  int eco = 10;
+  bool p1 =false; //variable prueba del sensor
+  int dist = 0; //distancia detectada por el sensor ultrasonido
+  int time1 = 0; //tiempo del sonido del sensor
+  
+  //grados servo
+  int gr;
+  //espacio libre
+  bool placeFree;
+  
+  //distancia limite
+  int distlim=30;
+  
+  void setup() {
+    Serial.begin(9600);
+    motor4.attach(4);
+    motor8.attach(8);
+    // Configuramos los pines como entradas o salidas
+    //Entradas
+    //Echo del Sensor Ultrasonido
+    pinMode(eco,INPUT);
+    //Salidas
+    //trig Sensor Ultrasonido
+    pinMode(tg,OUTPUT);
+    servo1.attach(12);
+  }
+  
+  void loop() {
+  servo1.write(160);//aqui el sensor mira recto
+  if (ultra()>10){
+  delante();
+  } else {
+    servo1.write(360);
+    if(ultra()<10) {
+       izquierda();
+        delay(100);
+    } else {
+      derecha();
       delay(100);
-  } else{
+    }
+  }
+  }
+  
+  int ultra(){
+    digitalWrite(tg,LOW);
+    delayMicroseconds(20);
+    digitalWrite(tg,HIGH);
+    delayMicroseconds(20);
+    digitalWrite(tg,LOW);
+    time1=pulseIn(eco,HIGH);
+    dist=int((time1*0.034)/2);  
+    Serial.print("Distancia: ");
+    Serial.print(dist); 
+    return dist;
+  
+  }
+  void delante() {
+    motor4.write(180);
+    motor8.write(-90);
+    Serial.println("Yendo hacia adelante");
+  }
+  void atras() {
+    motor4.write(0);
+    motor8.write(180);
+    Serial.println("Yendo hacia atras");
+  }
+  void izquierda() {
+   motor4.write(90);
+    motor8.write(180);
+   
+  }
+  void derecha() {
+   motor4.write(0);
+    motor8.write(90);
+    Serial.println("Yendo hacia la Derecha");
+  }
+  void sensor_derecha() {
+    servo1.write(130);
+    delay(200);
+  
+  if(ultra()<15){
     derecha();
     delay(100);
   }
-}
-}
-int sensor derecha () {
-  servo1.write(130);
-  delay(150)
-}
-
-int ultra(){
-  digitalWrite(tg,LOW);
-  delayMicroseconds(20);
-  digitalWrite(tg,HIGH);
-  delayMicroseconds(20);
-  digitalWrite(tg,LOW);
-  time1=pulseIn(eco,HIGH);
-  dist=int((time1*0.034)/2);  
-  Serial.print("Distancia: ");
-  Serial.print(dist); 
-  return dist;
-
-}
-void delante() {
-  motor4.write(180);
-  motor8.write(-90);
-  Serial.println("Yendo hacia adelante");
-}
-void atras() {
-  motor4.write(0);
-  motor8.write(180);
-  Serial.println("Yendo hacia atras");
-}
-void izquierda() {
- motor4.write(90);
-  motor8.write(180);
-  Serial.println("Yendo hacia la Izquierda");
-}
-void derecha() {
- motor4.write(0);
-  motor8.write(90);
-  Serial.println("Yendo hacia la Derecha");
-}
-void sensor derecha() {
-  servo1.write(130);
-delay(200);
-if(ultra()<15){
-     derecha();
-      delay(100);
-}
-
-void sensor izquierda() {
-  servo1.write(360);
-  delay(200)
-  if(ultra()<15){
-     izquierda();
-      delay(100);
-}
-z
+  }
+  
+  void sensor_izquierda() {
+    servo1.write(360);
+    delay(200);
+    if(ultra()<15){
+    izquierda();
+    delay(100);
+    }
+  }
