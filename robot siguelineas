@@ -104,3 +104,4 @@ void sensor izquierda() {
      izquierda();
       delay(100);
 }
+z
