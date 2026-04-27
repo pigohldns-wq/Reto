@@ -1,0 +1,57 @@
+#include <Servo.h>
+
+Servo motorIzquierdo; 
+Servo motorDerecho;
+
+int sensorIzq = 2;
+int sensorDer = 3;
+
+// --- VALORES DE VELOCIDAD AJUSTADOS ---
+// 90 es stop. 
+// Para el motor izquierdo: 0 es máximo adelante, 180 atrás.
+// Para el motor derecho: 180 es máximo adelante, 0 atrás.
+
+int velRapida_Iz = 50;   // Velocidad crucero Izq
+int velRapida_Der = 130;  // Velocidad crucero Der
+
+void setup() {
+  motorIzquierdo.attach(8);
+  motorDerecho.attach(4);
+  pinMode(sensorIzq, INPUT);
+  pinMode(sensorDer, INPUT);
+
+  // Parada de seguridad al empezar
+  motorIzquierdo.write(90);
+  motorDerecho.write(90);
+}
+
+void loop() {
+  int lecturaIzq = digitalRead(sensorIzq);
+  int lecturaDer = digitalRead(sensorDer);
+
+  // --- LÓGICA: NEGRO = SEGURO (Moverse) | BLANCO = INSEGURO (Corregir) ---
+
+  if (lecturaIzq == LOW && lecturaDer == LOW) {
+    // AMBOS EN NEGRO: ¡Gas!
+    motorIzquierdo.write(velRapida_Iz);
+    motorDerecho.write(velRapida_Der); 
+  } 
+  else if (lecturaIzq == HIGH && lecturaDer == LOW) {
+    // IZQUIERDA EN BLANCO: El negro está a la derecha. 
+    // Giramos suave a la derecha: movemos la rueda izq y paramos la der.
+    motorIzquierdo.write(velRapida_Iz); 
+    motorDerecho.write(90); 
+  } 
+  else if (lecturaIzq == LOW && lecturaDer == HIGH) {
+    // DERECHA EN BLANCO: El negro está a la izquierda.
+    // Giramos suave a la izquierda: paramos la izq y movemos la der.
+    motorIzquierdo.write(90); 
+    motorDerecho.write(velRapida_Der);
+  }
+  else {
+    // AMBOS EN BLANCO: Se ha salido del todo.
+    // Pequeño giro de rescate para buscar el negro.
+    motorIzquierdo.write(70); 
+    motorDerecho.write(70); 
+  }
+}
