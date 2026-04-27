@@ -1,0 +1,73 @@
+#include <Servo.h>
+
+Servo motor4; // DERECHA - Pin 4
+Servo motor8; // IZQUIERDA - Pin 8
+
+void setup() { 
+  motor4.attach(4);
+  motor8.attach(8);
+  
+  // Parada inicial de 2 segundos para que te dé tiempo a soltarlo
+  motor4.write(90);
+  motor8.write(90);
+  delay(2000);
+}
+
+void loop() {
+  // --- 1. Girar a la DERECHA ---
+  // (Mueve Izquierda (8), para Derecha (4))
+  motor4.write(90);   // Pin 4: PARADO
+  motor8.write(0);    // Pin 8: ADELANTE (Sustituye al -180)
+  delay(400);
+
+  // --- 2. Ir RECTO ---
+  motor4.write(180);  // Pin 4: ADELANTE
+  motor8.write(0);    // Pin 8: ADELANTE
+  delay(6500);
+
+  // --- 3. Girar a la IZQUIERDA ---
+  // (Para Izquierda (8), mueve Derecha (4))
+  motor4.write(180);  // Pin 4: ADELANTE
+  motor8.write(90);   // Pin 8: PARADO
+  delay(850);
+
+  // --- 4. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(7000);
+
+  // --- 5. Girar a la DERECHA ---
+  motor4.write(90);
+  motor8.write(0);
+  delay(1050);
+
+  // --- 6. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(8500);
+
+  // --- 7. Girar a la IZQUIERDA ---
+  motor4.write(180);
+  motor8.write(90);
+  delay(900);
+
+  // --- 8. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(6000);
+
+  // --- 9. Girar a la DERECHA ---
+  motor4.write(90);
+  motor8.write(0);
+  delay(500);
+
+  // --- 10. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(5000);
+
+  // Al finalizar la ruta, se detiene para no repetir en bucle loco
+  motor4.write(90);
+  motor8.write(90);
+  while(true); 
+}
