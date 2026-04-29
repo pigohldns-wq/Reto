@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARCELO FC - RobotALMI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="images/images.jpeg">
+    <style>
+        /* Estilos para posicionar el título arriba como en la captura */
+        header {
+            padding-top: 100px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .Titulo-Contenedor {
+            background-color: white;
+            color: black;
+            display: inline-block;
+            padding: 12px 120px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 28px; /* Un poco más grande para el nombre del equipo */
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+        }
+
+        /* Contenedores de contenido */
+        .robot-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .robot-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        .robot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #fe2c55;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .robot-flex {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .robot-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .robot-img-container {
+            width: 350px;
+            height: 250px;
+            border-radius: 10px;
+            border: 2px solid white;
+            overflow: hidden;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .robot-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .codigo-header {
+            background: #333;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 8px 8px 0 0;
+            font-size: 11px;
+            font-family: monospace;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .codigo-container {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            margin: 0;
+        }
+        .tech-tag {
+            background: #fe2c55;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="Indice">
+        <div class="seccion-izquierda">
+            <a href="#inicio">Inicio</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="#proyectos">Robots</a>
+            <a href="#sistemas">Propósito</a>
+            <a href="#Redes">Contacto</a>
+        </div>
+        <div class="paginas">
+            <a href="index.html">ES</a>
+            <a href="index2.html">EU</a>
+            <a href="index3.html">EN</a>                
+        </div>
+    </nav>
+
+    <header id="inicio">
+        <div class="Titulo-Contenedor">
+            BARCELÓ FC
+        </div>
+    </header>
+
+    <!-- SECCIÓN NOSOTROS -->
+    <main class="contenido" id="nosotros">
+        <section>
+            <h2>¿Quiénes somos?</h2>
+            <p>Somos el equipo <b>Barceló FC</b> del ciclo formativo SMR1 del Centro de Estudios ALMI de Bilbao[cite: 1]. Participamos en el Reto 5 RobotALMI, un proyecto donde hemos diseñado, montado y programado robots reales para competir a nivel europeo[cite: 1]. En un tiempo récord de <b>3 semanas</b> y con un equipo de <b>tres personas</b>, hemos trabajado intensamente en programación Arduino, hardware y sistemas[cite: 1].</p>
+        </section>
+    </main>
+
+    <!-- SECCIÓN ROBOTS -->
+    <main class="contenido" id="proyectos">
+        <section class="robot-section">
+            <h2>Nuestra Flota de Robots</h2>
+
+            <div class="robot-card">
+                <div class="robot-header">
+                    <h3>01. Robot Siguelíneas</h3>
+                    <span class="tech-tag">Arduino UNO</span>
+                </div>
+                <div class="robot-flex">
+                    <div class="robot-img-container">
+                        <img src="images/siguelineas.jpg" alt="Robot Siguelíneas">
+                    </div>
+                    <div class="robot-info">
+                        <p>Robot autónomo que detecta líneas negras sobre fondo blanco mediante sensores infrarrojos[cite: 1]. Su lógica se basa en el ajuste constante de los servomotores para mantener la trayectoria[cite: 1].</p>
+                        <div class="codigo-header"><span>siguelineas.ino</span><span>C++</span></div>
+                        <pre class="codigo-container">
+if (lecturaIzq == LOW && lecturaDer == LOW) {
+  motorIzquierdo.write(50); 
+  motorDerecho.write(130); 
+} else if (lecturaIzq == HIGH) {
+  motorIzquierdo.write(50); 
+  motorDerecho.write(90); 
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="robot-card">
+                <div class="robot-header">
+                    <h3>02. Esquiva Obstáculos</h3>
+                    <span class="tech-tag">Ruta Programada</span>
+                </div>
+                <div class="robot-flex">
+                    <div class="robot-img-container">
+                        <img src="images/obstaculos.jpg" alt="Robot Obstáculos">
+                    </div>
+                    <div class="robot-info">
+                        <p>Navega el circuito utilizando una ruta programada por tiempos precisos, permitiendo esquivar elementos de forma cronometrada[cite: 1].</p>
+                        <div class="codigo-header"><span>obstaculos.ino</span><span>C++</span></div>
+                        <pre class="codigo-container">
+motor4.write(90);   
+motor8.write(0);    
+delay(400);         
+motor4.write(180);  
+motor8.write(0);
+delay(6500);        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CONTACTO -->
+    <section id="Redes" class="contacto-container">
+        <div class="contacto-info">
+            <h2>Contacta con nosotros</h2>
+            <div class="redes-sociales">
+                <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link"><span>📱</span> TikTok</a>
+            </div>
+        </div>
+        <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <input type="email" name="email" placeholder="Tu correo electrónico" required>
+            <textarea name="mensaje" placeholder="Escribe aquí..." rows="5" required></textarea>
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+    </section>
+
+    <footer class="PiePagina">
+        <div class="footer-content">
+            <p>&copy; 2026 Barceló FC - ALMI Bilbao</p>
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#Redes">Contacto</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
