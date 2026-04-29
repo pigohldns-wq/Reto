@@ -145,3 +145,7 @@ p {
 .formulario-contacto button:hover {
     background-color: orange;
 }
+img {
+       height:17cm;
+    margin-left:0%;
+}
