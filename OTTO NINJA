@@ -1,0 +1,171 @@
+#include <Servo.h>
+#include <SoftwareSerial.h>
+
+SoftwareSerial BT(8, 9); // RX=pin8, TX=pin9
+
+Servo caderaIzq;  // pin 4
+Servo caderaDer;  // pin 5
+Servo pieDer;     // pin 7
+Servo pieIzq;     // pin 6
+Servo brazoIzq;   // pin 10
+Servo cabeza;     // pin 12
+Servo brazoDer;   // pin 13
+
+void pararPies() {
+  pieIzq.write(90);
+  pieDer.write(90);
+}
+
+void neutro() {
+  caderaIzq.write(100);
+  caderaDer.write(100);
+  pararPies();
+  brazoIzq.write(90);
+  brazoDer.write(90);
+  cabeza.write(70);
+}
+
+void ejecutar(char cmd) {
+  cmd = toLowerCase(cmd);
+
+  switch (cmd) {
+
+    case 'w':
+      caderaIzq.write(0);
+      caderaDer.write(180);
+      pieIzq.write(180);
+      pieDer.write(0);
+      Serial.println(">> ADELANTE");
+      BT.println(">> ADELANTE");
+      break;
+
+    case 's':
+      caderaIzq.write(0);
+      caderaDer.write(180);
+      pieIzq.write(0);
+      pieDer.write(180);
+      Serial.println(">> ATRAS");
+      BT.println(">> ATRAS");
+      break;
+
+    case 'a':
+      caderaIzq.write(0);
+      caderaDer.write(180);
+      pieIzq.write(90);
+      pieDer.write(0);
+      Serial.println(">> GIRAR IZQUIERDA");
+      BT.println(">> GIRAR IZQUIERDA");
+      break;
+
+    case 'd':
+      caderaIzq.write(0);
+      caderaDer.write(180);
+      pieIzq.write(180);
+      pieDer.write(90);
+      Serial.println(">> GIRAR DERECHA");
+      BT.println(">> GIRAR DERECHA");
+      break;
+
+    case 'q':
+      brazoDer.write(0);
+      Serial.println(">> BRAZO DER ARRIBA");
+      BT.println(">> BRAZO DER ARRIBA");
+      break;
+
+    case 'e':
+      brazoDer.write(180);
+      Serial.println(">> BRAZO DER ABAJO");
+      BT.println(">> BRAZO DER ABAJO");
+      break;
+
+    case 'z':
+      brazoIzq.write(0);
+      Serial.println(">> BRAZO IZQ ARRIBA");
+      BT.println(">> BRAZO IZQ ARRIBA");
+      break;
+
+    case 'x':
+      brazoIzq.write(180);
+      Serial.println(">> BRAZO IZQ ABAJO");
+      BT.println(">> BRAZO IZQ ABAJO");
+      break;
+
+    case 'l':
+      cabeza.write(0);
+      Serial.println(">> CABEZA DERECHA");
+      BT.println(">> CABEZA DERECHA");
+      break;
+
+    case 'j':
+      cabeza.write(180);
+      Serial.println(">> CABEZA IZQUIERDA");
+      BT.println(">> CABEZA IZQUIERDA");
+      break;
+
+    case 'k':
+      cabeza.write(70);
+      Serial.println(">> CABEZA RECTO");
+      BT.println(">> CABEZA RECTO");
+      break;
+
+    case 'p':
+      caderaIzq.write(0);
+      caderaDer.write(180);
+      Serial.println(">> CADERAS MARCHA");
+      BT.println(">> CADERAS MARCHA");
+      break;
+
+    case 'o':
+      caderaIzq.write(100);
+      caderaDer.write(100);
+      Serial.println(">> CADERAS NEUTRO");
+      BT.println(">> CADERAS NEUTRO");
+      break;
+
+    case ' ':
+      pararPies();
+      Serial.println(">> PARADO");
+      BT.println(">> PARADO");
+      break;
+  }
+}
+
+void setup() {
+  caderaIzq.attach(4);
+  caderaDer.attach(5);
+  pieDer.attach(7);
+  pieIzq.attach(6);
+  brazoIzq.attach(10);
+  cabeza.attach(12);
+  brazoDer.attach(13);
+
+  Serial.begin(9600);
+  BT.begin(9600);
+  neutro();
+  delay(500);
+
+  Serial.println("=== CONTROL ROBOT ===");
+  Serial.println("w = adelante");
+  Serial.println("s = atras");
+  Serial.println("a = girar izquierda");
+  Serial.println("d = girar derecha");
+  Serial.println("q = brazo der arriba");
+  Serial.println("e = brazo der abajo");
+  Serial.println("z = brazo izq arriba");
+  Serial.println("x = brazo izq abajo");
+  Serial.println("l = cabeza derecha");
+  Serial.println("j = cabeza izquierda");
+  Serial.println("k = cabeza recto");
+  Serial.println("p = caderas marcha");
+  Serial.println("o = caderas neutro");
+  Serial.println("ESPACIO = parar todo");
+}
+
+void loop() {
+  if (Serial.available()) {
+    ejecutar(Serial.read());
+  }
+  if (BT.available()) {
+    ejecutar(BT.read());
+  }
+}
