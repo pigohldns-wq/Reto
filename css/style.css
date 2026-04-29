@@ -81,6 +81,9 @@ h2 {
     text-align: center;
     width: 100%;
 }
+p {
+    font-size: 30px;
+}
 .footer-content {
     width: 100%;
     margin: auto;

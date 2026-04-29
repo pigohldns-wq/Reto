@@ -72,6 +72,9 @@ h1:hover {
 h2 {
     font-size: 50px;
 }
+p {
+    font-size: 30px;
+}
 .PiePagina {
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
