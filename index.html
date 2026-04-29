@@ -1,235 +1,70 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNICAL REPORT | BARCELÓ FC</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/x-icon" href="images/images.jpeg">
-    <style>
-        /* Estilos específicos para la estructura de robots */
-        .robot-section {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-top: 30px;
-        }
-        .robot-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: left;
-        }
-        .robot-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #fe2c55;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .robot-flex {
-            display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-            align-items: flex-start;
-        }
-        .robot-info {
-            flex: 1;
-            min-width: 300px;
-        }
-        .robot-img {
-            width: 350px;
-            height: 250px;
-            border-radius: 10px;
-            border: 2px solid white;
-            object-fit: cover;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-        }
-        .codigo-header {
-            background: #333;
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 8px 8px 0 0;
-            font-size: 11px;
-            font-family: monospace;
-            margin-top: 20px;
-        }
-        .codigo-box {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 0 0 8px 8px;
-            font-family: 'Consolas', monospace;
-            font-size: 13px;
-            max-height: 180px;
-            overflow-y: auto;
-            border: 1px solid #333;
-        }
-        .tech-tag {
-            background: #fe2c55;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <nav class="Indice">
-        <div class="seccion-izquierda">
-            <a href="#inicio">Inicio</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#proyectos">Robots</a>
-            <a href="#sistemas">Infraestructura</a>
-            <a href="#Redes">Contacto</a>
-        </div>
-        <div class="paginas">
-            <a href="index.html">ES</a>
-            <a href="index2.html">EU</a>
-            <a href="index3.html">EN</a>                
-        </div>
-    </nav>
-
-    <header id="inicio">
-        <h1>PROJECT LOG: BARCELÓ FC</h1>
-    </header>
-
-    <main class="contenido" id="nosotros">
-        <section>
-            <h2>¿Quiénes somos?</h2>
-            <p>Somos el equipo Barceló FC del ciclo <b>SMR1 de ALMI Bilbao</b>. Este proyecto representa la culminación de 3 semanas de trabajo en el reto RobotALMI, integrando robótica autónoma, programación avanzada y despliegue de sistemas.</p>
+<html>
+    <head>
+        <title>BARCELO FC</title>
+        <link rel="stylesheet" href="css/style2.css">
+        <link rel="icon" type="image/x-icon" href="images/images.jpeg">
+    </head>
+    <body>
+        <ul class="Indice">
+            <div class="seccion-izquierda">
+                <a href="#inicio" class="nav-item">Inicio</a>
+                <a href="Sobre-Nosotros.html" class="nav-item">Sobre nosotros</a>
+                <a href="Robots2.html" class="nav-item">Robots</a>
+                <a href="#Redes" class="nav-item">Redescubrir</a>
+            </div>
+            <section id="inicio">
+                <h1 class="Titulo">ROBOTS CON BARCELÓ</h1>
+            </section>
+            <div class="paginas">
+                <a href="index.html">ES</a>
+                <a href="index2.html">EU</a>
+                <a href="index3.html">EN</a>
+            </div>
+        </ul>
+        <main class="contenido">
+            <section id="Sobre-Nosotros">
+                <h2>¿Quiénes somos?</h2>
+                <p>Somos Barceló FC, un equipo del ciclo formativo SMR1 del Centro de Estudios ALMI de Bilbao. Participamos en el Reto 5 RobotALMI, donde hemos diseñado, montado y programado robots reales para competir en una competición europea de robótica. A lo largo de 11 semanas hemos trabajado en programación Arduino, montaje de hardware, seguridad de redes WiFi y diseño web.</p>
+            </section>
+        </main>
+            <main class="contenido">
+            <section id="inicio">
+                <h2>¿Nuestro objetivo?</h2>
+                <p>Nuestro objetivo es demostrar que con trabajo en equipo, dedicación y ganas de aprender, se pueden crear proyectos tecnológicos reales desde cero. RobotALMI no es solo un reto escolar, es nuestro camino para acercarnos al mundo profesional: montando hardware, escribiendo código, protegiendo redes y construyendo nuestra propia marca.</p>
+            </section>
+        </main>
+        <main class="contenido">
+            <section id="inicio">
+                <h2>¿Qué hemos hecho?</h2>
+                <p>Durante 11 semanas y 330 horas hemos llevado a cabo un proyecto de robótica completo. Hemos montado tres robots desde cero: Otto Ninja, BQ y Araña. Hemos programado cada uno con Arduino y lenguaje C++, creando algoritmos para el movimiento autónomo y el control por Bluetooth desde el móvil. Además, hemos diseñado e impreso las piezas para los robots en una impresora 3D. Para proteger las comunicaciones en la competición, hemos configurado nuestra propia red WiFi segura con cifrado WPA3. Asimismo, hemos creado esta página web en tres idiomas, gestionado el código con GitHub y diseñado la imagen de marca del equipo.</p>
+            </section>
+        </main>
+            </section>
+        </main>
+        <section id="Redes" class="contacto-container">
+            <div class="contacto-info">
+                <h2>Ponte en contacto con nosotros</h2>
+                <p>¿Tienes dudas sobre nuestros robots? ¡Escríbenos!</p>
+                <div class="redes-sociales">
+                    <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link"><span>📱</span> TikTok</a>
+                </div>
+            </div>
+            <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                <textarea name="mensaje" placeholder="Escribe aquí tu mensaje..." rows="5" required></textarea>
+                <button type="submit">Enviar mensaje</button>
+            </form>
         </section>
-    </main>
-
-    <main class="contenido" id="proyectos">
-        <section class="robot-section">
-            <h2>Nuestra Flota de Robots</h2>
-
-            <div class="robot-card">
-                <div class="robot-header">
-                    <h3>01. Siguelíneas & Obstáculos</h3>
-                    <span class="tech-tag">Arduino UNO</span>
-                </div>
-                <div class="robot-flex">
-                    <div class="robot-img">
-                        <img src="images/robot_2en1.jpg" alt="Foto Robot 2 en 1" style="width:100%; border-radius:8px; display:block;">
-                    </div>
-                    <div class="robot-info">
-                        <p>Diseñado para una respuesta rápida en pista. Utiliza una matriz de sensores infrarrojos para detectar el contraste entre blanco y negro, junto con una lógica de tiempos para realizar maniobras de evasión de obstáculos programadas.</p>
-                        <div class="codigo-header">firmware_follower.ino</div>
-                        <div class="codigo-box">
-<pre>
-if (lecturaIzq == LOW && lecturaDer == LOW) {
-    motorIzquierdo.write(50); 
-    motorDerecho.write(130);
-} else if (lecturaIzq == HIGH) {
-    motorIzquierdo.write(90); // Ajuste fino
-}
-</pre>
-                        </div>
-                    </div>
+        <footer class="PiePagina">
+            <div class="footer-content">
+                <p>&copy; 2026 Barceló FC - Todos los derechos reservados</p>
+                <div class="footer-links">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#Redes">Contacto</a>
+                    <a href="https://planeta.es/es/codigo-etico" target="_blank" class="privacidad-link">Privacidad</a>
                 </div>
             </div>
-            <div class="robot-card">
-                <div class="robot-header">
-                    <h3>02. Otto Ninja (Bípede)</h3>
-                    <span class="tech-tag">Bluetooth / Nano</span>
-                </div>
-                <div class="robot-flex">
-                    <div class="robot-img">
-                        <img src="images/otto_ninja.jpg" alt="Foto Otto Ninja" style="width:100%; border-radius:8px; display:block;">
-                    </div>
-                    <div class="robot-info">
-                        <p>Un robot humanoide centrado en la movilidad. Implementa una comunicación Serial vía Bluetooth que permite el control inalámbrico desde un smartphone. Se calibraron los ángulos de los servos para garantizar el equilibrio dinámico.</p>
-                        <div class="codigo-header">ninja_bt_control.ino</div>
-                        <div class="codigo-box">
-<pre>
-void loop() {
-  if (BT.available()) {
-    char cmd = BT.read();
-    if(cmd == 'w') caminar();
-    if(cmd == 's') retroceder();
-    if(cmd == ' ') detener();
-  }
-}
-</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Robot 3: Araña Hexápodo -->
-            <div class="robot-card">
-                <div class="robot-header">
-                    <h3>03. Araña (Hexápodo)</h3>
-                    <span class="tech-tag">Servo Dynamics</span>
-                </div>
-                <div class="robot-flex">
-                    <div class="robot-img">
-                        <img src="images/spider.jpg" alt="Foto Robot Araña" style="width:100%; border-radius:8px; display:block;">
-                    </div>
-                    <div class="robot-info">
-                        <p>Plataforma de locomoción compleja. Utiliza múltiples grados de libertad para simular el movimiento orgánico de un arácnido. Actualmente en fase de optimización de la cinemática de las patas.</p>
-                        <div class="codigo-header">hexapod_movement.ino</div>
-                        <div class="codigo-box">
-<pre>
-// Inicialización de servos múltiples
-for(int i = 0; i < 6; i++) {
-  patas[i].attach(pin[i]);
-  patas[i].write(90);
-}
-</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- INFRAESTRUCTURA -->
-    <main class="contenido" id="sistemas">
-        <section>
-            <h2>Infraestructura IT y Seguridad</h2>
-            <p>El proyecto Barceló FC se apoya en una arquitectura de sistemas robusta:</p>
-            <div style="text-align: left; columns: 2; column-gap: 40px; margin-top: 20px; font-size: 18px;">
-                <p>🔹 <b>Cloud:</b> Despliegue en <b>AWS EC2</b>.</p>
-                <p>🔹 <b>Storage:</b> Nextcloud sobre <b>RAID 1</b>.</p>
-                <p>🔹 <b>Redes:</b> WiFi seguro WPA3.</p>
-                <p>🔹 <b>Difusión:</b> Marketing en TikTok.</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- CONTACTO -->
-    <section id="Redes" class="contacto-container">
-        <div class="contacto-info">
-            <h2>TECHNICAL CONTACT</h2>
-            <div class="redes-sociales">
-                <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link">📱 TikTok Oficial</a>
-            </div>
-        </div>
-        <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <textarea name="mensaje" placeholder="Consulta técnica..." rows="4" required></textarea>
-            <button type="submit">Enviar Mensaje</button>
-        </form>
-    </section>
-
-    <footer class="PiePagina">
-        <div class="footer-content">
-            <p>&copy; 2026 Barceló FC | SMR - ALMI Bilbao</p>
-            <div class="footer-links">
-                <a href="#inicio">Inicio</a>
-                <a href="https://planeta.es/es/codigo-etico" target="_blank">Privacidad</a>
-            </div>
-        </div>
-    </footer>
-</body>
+        </footer>
+    </body>
 </html>

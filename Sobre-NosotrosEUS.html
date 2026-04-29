@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="eu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="images/images.jpeg">
     <style>
-        /* Estilos para la barra superior con el título integrado */
+        /* Goiko barraren estiloak, titulua barne */
         .Indice {
             display: flex;
             justify-content: space-between;
@@ -38,7 +38,7 @@
             gap: 20px;
         }
 
-        /* Ajuste de márgenes para el contenido */
+        /* Edukiarentzako marjinen doikuntza */
         body {
             padding-top: 80px;
         }
@@ -47,7 +47,7 @@
             margin-bottom: 40px;
         }
 
-        /* Cuadros de los Robots */
+        /* Roboten txartelak */
         .robot-section {
             display: flex;
             flex-direction: column;
@@ -104,15 +104,15 @@
     </style>
 </head>
 <body>
-    <!-- BARRA DE NAVEGACIÓN CON TÍTULO -->
+    <!-- NABIGAZIO BARRA TITULUAREKIN -->
     <nav class="Indice">
         <div class="seccion-izquierda">
             <div class="nav-title">BARCELÓ FC</div>
-            <a href="index.html">Inicio</a>
-            <a href="#nosotros">Nosotros</a>
-            <a href="#proyectos">Robots</a>
-            <a href="#sistemas">Propósito</a>
-            <a href="#Redes">Contacto</a>
+            <a href="index2.html">Hasiera</a>
+            <a href="#nosotros">Guri buruz</a>
+            <a href="#proyectos">Robotak</a>
+            <a href="#sistemas">Helburua</a>
+            <a href="#Redes">Kontaktua</a>
         </div>
         <div class="paginas">
             <a href="Sobre-Nosotros.html">ES</a>
@@ -121,23 +121,23 @@
         </div>
     </nav>
 
-    <!-- SOBRE NOSOTROS -->
+    <!-- GURI BURUZ -->
     <main class="contenido" id="nosotros">
         <section>
-            <h2>¿Quiénes somos?</h2>
-            <p>Somos el equipo <b>Barceló FC</b> del ciclo formativo SMR1 del Centro de Estudios ALMI de Bilbao. Participamos en el Reto 5 RobotALMI, un proyecto donde hemos diseñado, montado y programado robots reales para competir a nivel europeo. En un tiempo récord de <b>3 semanas</b> y con un equipo de <b>tres personas</b>, hemos integrado hardware, código y seguridad.</p>
+            <h2>Nor gara?</h2>
+            <p>Bilboko ALMI Ikastetxeko SMR1 heziketa-zikloko <b>hiru pertsonako</b> taldea gara, <b>Barceló FC</b> izenekoa[cite: 1]. RobotALMI 5. Erronkan parte hartzen dugu; proiektu honetan benetako robotak diseinatu, muntatu eta programatu ditugu Europa mailan lehiatzeko[cite: 1]. <b>3 asteko</b> errekor-denboran, gogor lan egin dugu Arduino programazioan, hardwarean eta sistemetan[cite: 1].</p>
         </section>
     </main>
 
-    <!-- FLOTA DE ROBOTS -->
+    <!-- ROBOTEN FLOTA -->
     <main class="contenido" id="proyectos">
         <section class="robot-section">
-            <h2>Nuestra Flota de Robots</h2>
+            <h2>Gure Robot Flota</h2>
 
-            <!-- Robot 1 -->
+            <!-- 1. Robota -->
             <div class="robot-card">
                 <div class="robot-header">
-                    <h3>01. Robot Siguelíneas</h3>
+                    <h3>01. Lerro-jarraitzaile Robota</h3>
                     <span class="tech-tag">Arduino UNO</span>
                 </div>
                 <div class="robot-flex">
@@ -145,7 +145,7 @@
                         <img src="images/siguelineas.jpg" alt="Robot Siguelíneas">
                     </div>
                     <div class="robot-info">
-                        <p>Robot autónomo que detecta líneas negras sobre fondo blanco mediante sensores infrarrojos. Su lógica se basa en el ajuste constante de los servomotores para mantener la trayectoria.</p>
+                        <p>Robot autonomo honek hondo zuriaren gainean dagoen lerro beltza detektatzen du sentsore infragorrien bidez[cite: 1]. Bere logika serbomotorren etengabeko doikuntzan oinarritzen da ibilbideari eusteko[cite: 1].</p>
                         <pre class="codigo-container">
 if (lecturaIzq == LOW && lecturaDer == LOW) {
   motorIzquierdo.write(50); 
@@ -155,56 +155,56 @@ if (lecturaIzq == LOW && lecturaDer == LOW) {
                 </div>
             </div>
 
-            <!-- Robot 2 -->
+            <!-- 2. Robota -->
             <div class="robot-card">
                 <div class="robot-header">
-                    <h3>02. Esquiva Obstáculos</h3>
-                    <span class="tech-tag">Ruta Programada</span>
+                    <h3>02. Oztopo-saihestzailea</h3>
+                    <span class="tech-tag">Ibilbide Programatua</span>
                 </div>
                 <div class="robot-flex">
                     <div class="robot-img-container">
                         <img src="images/obstaculos.jpg" alt="Robot Obstáculos">
                     </div>
                     <div class="robot-info">
-                        <p>Navega el circuito utilizando una ruta programada por tiempos precisos, permitiendo esquivar elementos de forma cronometrada y eficiente.</p>
+                        <p>Zirkuituan nabigatzen du denbora zehatzen bidez programatutako ibilbide bati jarraituz, oztopoak modu kronometratuan eta eraginkorrean saihestuz[cite: 1].</p>
                         <pre class="codigo-container">
 motor4.write(180);  
 motor8.write(0);
-delay(6500); // IR RECTO</pre>
+delay(6500); // ZUZEN JOAN</pre>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- EL CUADRO QUE FALTABA: PROPÓSITO -->
+    <!-- HELBURUA ETA LORPENAK -->
     <main class="contenido" id="sistemas">
         <section>
-            <h2>¿Cuál es nuestro propósito?</h2>
-            <p>Nuestro objetivo es demostrar la capacidad de resolución técnica en un entorno bajo presión. Hemos logrado en <b>3 semanas</b> lo que parecía imposible: montar, programar y desplegar una flota funcional de robots controlados tanto por autonomía propia como por sistemas remotos.</p>
-            <p>Este proyecto representa la culminación de nuestro aprendizaje en SMR1, uniendo redes, programación y montaje físico en un solo éxito técnico.</p>
+            <h2>Zein da gure helburua?</h2>
+            <p>Gure helburua presiopeko ingurune batean ebazpen teknikoarako gaitasuna erakustea da[cite: 1]. <b>3 astetan</b> ezinezkoa zirudiena lortu dugu: robot flota funtzional bat muntatu, programatu eta martxan jartzea, autonomia propioaren bidez zein urrutiko sistemen bidez kontrolatuta[cite: 1].</p>
+            <p>Proiektu honek SMR1en ikasitakoaren gailurra irudikatzen du, sareak, programazioa eta muntaketa fisikoa arrakasta tekniko bakar batean batuz[cite: 1].</p>
         </section>
     </main>
 
-    <!-- CONTACTO -->
+    <!-- KONTAKTUA -->
     <section id="Redes" class="contacto-container">
         <div class="contacto-info">
-            <h2>Contacta con nosotros</h2>
+            <h2>Jarri gurekin harremanetan</h2>
             <div class="redes-sociales">
                 <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link"><span>📱</span> TikTok</a>
             </div>
         </div>
         <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu correo electrónico" required>
-            <textarea name="mensaje" placeholder="Escribe aquí..." rows="5" required></textarea>
-            <button type="submit">Enviar Mensaje</button>
+            <input type="text" name="nombre" placeholder="Zure izena" required>
+            <input type="email" name="email" placeholder="Zure posta elektronikoa" required>
+            <textarea name="mensaje" placeholder="Idatzi hemen..." rows="5" required></textarea>
+            <button type="submit">Mezua bidali</button>
         </form>
     </section>
 
     <footer class="PiePagina">
         <div class="footer-content">
-            <p>&copy; 2026 Barceló FC - ALMI Bilbao</p>
+            <p>&copy; 2026 Barceló FC - ALMI Bilbo</p>
         </div>
     </footer>
 </body>

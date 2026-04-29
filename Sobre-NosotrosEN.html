@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="images/images.jpeg">
     <style>
-        /* Estilos para la barra superior con el título integrado */
+        /* Styles for the top bar with integrated title */
         .Indice {
             display: flex;
             justify-content: space-between;
@@ -38,7 +38,7 @@
             gap: 20px;
         }
 
-        /* Ajuste de márgenes para el contenido */
+        /* Content margin adjustment */
         body {
             padding-top: 80px;
         }
@@ -47,7 +47,7 @@
             margin-bottom: 40px;
         }
 
-        /* Cuadros de los Robots */
+        /* Robot Cards */
         .robot-section {
             display: flex;
             flex-direction: column;
@@ -104,15 +104,15 @@
     </style>
 </head>
 <body>
-    <!-- BARRA DE NAVEGACIÓN CON TÍTULO -->
+    <!-- NAVIGATION BAR WITH TITLE -->
     <nav class="Indice">
         <div class="seccion-izquierda">
             <div class="nav-title">BARCELÓ FC</div>
-            <a href="index.html">Inicio</a>
-            <a href="#nosotros">Nosotros</a>
+            <a href="index3.html">Home</a>
+            <a href="#nosotros">About Us</a>
             <a href="#proyectos">Robots</a>
-            <a href="#sistemas">Propósito</a>
-            <a href="#Redes">Contacto</a>
+            <a href="#sistemas">Purpose</a>
+            <a href="#Redes">Contact</a>
         </div>
         <div class="paginas">
             <a href="Sobre-Nosotros.html">ES</a>
@@ -121,31 +121,31 @@
         </div>
     </nav>
 
-    <!-- SOBRE NOSOTROS -->
+    <!-- ABOUT US -->
     <main class="contenido" id="nosotros">
         <section>
-            <h2>¿Quiénes somos?</h2>
-            <p>Somos el equipo <b>Barceló FC</b> del ciclo formativo SMR1 del Centro de Estudios ALMI de Bilbao. Participamos en el Reto 5 RobotALMI, un proyecto donde hemos diseñado, montado y programado robots reales para competir a nivel europeo. En un tiempo récord de <b>3 semanas</b> y con un equipo de <b>tres personas</b>, hemos integrado hardware, código y seguridad.</p>
+            <h2>Who are we?</h2>
+            <p>We are team <b>Barceló FC</b> from the SMR1 vocational training course at the ALMI Study Center in Bilbao. We are participating in Challenge 5 RobotALMI, a project where we have designed, assembled, and programmed real robots to compete at a European level. In a record time of <b>3 weeks</b> and with a team of <b>three people</b>, we have integrated hardware, code, and security.</p>
         </section>
     </main>
 
-    <!-- FLOTA DE ROBOTS -->
+    <!-- ROBOT FLEET -->
     <main class="contenido" id="proyectos">
         <section class="robot-section">
-            <h2>Nuestra Flota de Robots</h2>
+            <h2>Our Robot Fleet</h2>
 
             <!-- Robot 1 -->
             <div class="robot-card">
                 <div class="robot-header">
-                    <h3>01. Robot Siguelíneas</h3>
+                    <h3>01. Line-Follower Robot</h3>
                     <span class="tech-tag">Arduino UNO</span>
                 </div>
                 <div class="robot-flex">
                     <div class="robot-img-container">
-                        <img src="images/siguelineas.jpg" alt="Robot Siguelíneas">
+                        <img src="images/siguelineas.jpg" alt="Line-Follower Robot">
                     </div>
                     <div class="robot-info">
-                        <p>Robot autónomo que detecta líneas negras sobre fondo blanco mediante sensores infrarrojos. Su lógica se basa en el ajuste constante de los servomotores para mantener la trayectoria.</p>
+                        <p>An autonomous robot that detects black lines on a white background using infrared sensors. Its logic is based on the constant adjustment of servomotors to maintain the trajectory.</p>
                         <pre class="codigo-container">
 if (lecturaIzq == LOW && lecturaDer == LOW) {
   motorIzquierdo.write(50); 
@@ -158,47 +158,47 @@ if (lecturaIzq == LOW && lecturaDer == LOW) {
             <!-- Robot 2 -->
             <div class="robot-card">
                 <div class="robot-header">
-                    <h3>02. Esquiva Obstáculos</h3>
-                    <span class="tech-tag">Ruta Programada</span>
+                    <h3>02. Obstacle Dodger</h3>
+                    <span class="tech-tag">Programmed Route</span>
                 </div>
                 <div class="robot-flex">
                     <div class="robot-img-container">
-                        <img src="images/obstaculos.jpg" alt="Robot Obstáculos">
+                        <img src="images/obstaculos.jpg" alt="Obstacle Robot">
                     </div>
                     <div class="robot-info">
-                        <p>Navega el circuito utilizando una ruta programada por tiempos precisos, permitiendo esquivar elementos de forma cronometrada y eficiente.</p>
+                        <p>Navigates the circuit using a route programmed with precise timing, allowing it to dodge elements in a timed and efficient manner.</p>
                         <pre class="codigo-container">
 motor4.write(180);  
 motor8.write(0);
-delay(6500); // IR RECTO</pre>
+delay(6500); // DRIVE STRAIGHT</pre>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- EL CUADRO QUE FALTABA: PROPÓSITO -->
+    <!-- PURPOSE SECTION -->
     <main class="contenido" id="sistemas">
         <section>
-            <h2>¿Cuál es nuestro propósito?</h2>
-            <p>Nuestro objetivo es demostrar la capacidad de resolución técnica en un entorno bajo presión. Hemos logrado en <b>3 semanas</b> lo que parecía imposible: montar, programar y desplegar una flota funcional de robots controlados tanto por autonomía propia como por sistemas remotos.</p>
-            <p>Este proyecto representa la culminación de nuestro aprendizaje en SMR1, uniendo redes, programación y montaje físico en un solo éxito técnico.</p>
+            <h2>What is our purpose?</h2>
+            <p>Our goal is to demonstrate our technical problem-solving capacity in a high-pressure environment. In just <b>3 weeks</b>, we have achieved what seemed impossible: assembling, programming, and deploying a functional fleet of robots controlled both autonomously and via remote systems.</p>
+            <p>This project represents the culmination of our learning in SMR1, uniting networks, programming, and physical assembly into a single technical success.</p>
         </section>
     </main>
 
-    <!-- CONTACTO -->
+    <!-- CONTACT -->
     <section id="Redes" class="contacto-container">
         <div class="contacto-info">
-            <h2>Contacta con nosotros</h2>
+            <h2>Contact Us</h2>
             <div class="redes-sociales">
                 <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link"><span>📱</span> TikTok</a>
             </div>
         </div>
         <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu correo electrónico" required>
-            <textarea name="mensaje" placeholder="Escribe aquí..." rows="5" required></textarea>
-            <button type="submit">Enviar Mensaje</button>
+            <input type="text" name="nombre" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Your email" required>
+            <textarea name="mensaje" placeholder="Write here..." rows="5" required></textarea>
+            <button type="submit">Send Message</button>
         </form>
     </section>
 
