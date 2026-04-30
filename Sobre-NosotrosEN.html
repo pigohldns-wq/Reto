@@ -85,21 +85,50 @@
             height: 100%;
             object-fit: cover;
         }
+
         .codigo-container {
             background: #1e1e1e;
             color: #d4d4d4;
             padding: 15px;
             border-radius: 8px;
             font-family: monospace;
-            font-size: 12px;
+            font-size: 11px;
+            max-height: 200px;
+            overflow-y: auto;
             overflow-x: auto;
+            border: 1px solid #333;
         }
+
         .tech-tag {
             background: #fe2c55;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 14px;
             color: white;
+        }
+
+        /* CONTACT SECTION STYLES */
+        .contacto-container {
+            padding: 80px 5%;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            margin: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        .contacto-info { flex: 1; min-width: 300px; }
+        .formulario-contacto { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+        .formulario-contacto input, .formulario-contacto textarea {
+            padding: 15px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white;
+        }
+        .formulario-contacto button {
+            background: #fe2c55; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold;
+        }
+        .tiktok-link {
+            display: inline-flex; align-items: center; color: white; text-decoration: none;
+            background: #000; padding: 12px 25px; border-radius: 50px; border: 1px solid #fe2c55; font-weight: bold;
         }
     </style>
 </head>
@@ -110,7 +139,7 @@
             <div class="nav-title">BARCELÓ FC</div>
             <a href="index3.html">Home</a>
             <a href="#nosotros">About Us</a>
-            <a href="Robots2.html">Robots</a>
+            <a href="Robots3.html">Robots</a>
             <a href="#sistemas">Purpose</a>
             <a href="#Redes">Contact</a>
         </div>
@@ -142,14 +171,67 @@
                 </div>
                 <div class="robot-flex">
                     <div class="robot-img-container">
-                        <img src="images/siguelineas.jpg" alt="Line-Follower Robot">
+                        <img src="images/IMG_20260429_083129_458.webp" alt="Line-Follower Robot">
                     </div>
                     <div class="robot-info">
                         <p>An autonomous robot that detects black lines on a white background using infrared sensors. Its logic is based on the constant adjustment of servomotors to maintain the trajectory.</p>
                         <pre class="codigo-container">
-if (lecturaIzq == LOW && lecturaDer == LOW) {
-  motorIzquierdo.write(50); 
-  motorDerecho.write(130); 
+#include <Servo.h>
+
+Servo motorIzquierdo; 
+Servo motorDerecho;
+
+int sensorIzq = 2;
+int sensorDer = 3;
+
+// --- VALORES DE VELOCIDAD AJUSTADOS ---
+// 90 es stop. 
+// Para el motor izquierdo: 0 es máximo adelante, 180 atrás.
+// Para el motor derecho: 180 es máximo adelante, 0 atrás.
+
+int velRapida_Iz = 50;   // Velocidad crucero Izq
+int velRapida_Der = 130;  // Velocidad crucero Der
+
+void setup() {
+  motorIzquierdo.attach(8);
+  motorDerecho.attach(4);
+  pinMode(sensorIzq, INPUT);
+  pinMode(sensorDer, INPUT);
+
+  // Parada de seguridad al empezar
+  motorIzquierdo.write(90);
+  motorDerecho.write(90);
+}
+
+void loop() {
+  int lecturaIzq = digitalRead(sensorIzq);
+  int lecturaDer = digitalRead(sensorDer);
+
+  // --- LÓGICA: NEGRO = SEGURO (Moverse) | BLANCO = INSEGURO (Corregir) ---
+
+  if (lecturaIzq == LOW && lecturaDer == LOW) {
+    // AMBOS EN NEGRO: ¡Gas!
+    motorIzquierdo.write(velRapida_Iz);
+    motorDerecho.write(velRapida_Der); 
+  } 
+  else if (lecturaIzq == HIGH && lecturaDer == LOW) {
+    // IZQUIERDA EN BLANCO: El negro está a la derecha. 
+    // Giramos suave a la derecha: movemos la rueda izq y paramos la der.
+    motorIzquierdo.write(velRapida_Iz); 
+    motorDerecho.write(90); 
+  } 
+  else if (lecturaIzq == LOW && lecturaDer == HIGH) {
+    // DERECHA EN BLANCO: El negro está a la izquierda.
+    // Giramos suave a la izquierda: paramos la izq y movemos la der.
+    motorIzquierdo.write(90); 
+    motorDerecho.write(velRapida_Der);
+  }
+  else {
+    // AMBOS EN BLANCO: Se ha salido del todo.
+    // Pequeño giro de rescate para buscar el negro.
+    motorIzquierdo.write(70); 
+    motorDerecho.write(70); 
+  }
 }</pre>
                     </div>
                 </div>
@@ -163,47 +245,819 @@ if (lecturaIzq == LOW && lecturaDer == LOW) {
                 </div>
                 <div class="robot-flex">
                     <div class="robot-img-container">
-                        <img src="images/obstaculos.jpg" alt="Obstacle Robot">
+                        <img src="images/IMG_3566.jpeg" alt="Obstacle Robot">
                     </div>
                     <div class="robot-info">
-                        <p>Navigates the circuit using a route programmed with precise timing, allowing it to dodge elements in a timed and efficient manner.</p>
+                        <p>Navigates the circuit using a route programmed with precise timing.</p>
                         <pre class="codigo-container">
-motor4.write(180);  
-motor8.write(0);
-delay(6500); // DRIVE STRAIGHT</pre>
+#include <Servo.h>
+
+Servo motor4; // DERECHA - Pin 4
+Servo motor8; // IZQUIERDA - Pin 8
+
+void setup() { 
+  motor4.attach(4);
+  motor8.attach(8);
+  
+  // Parada inicial de 2 segundos para que te dé tiempo a soltarlo
+  motor4.write(90);
+  motor8.write(90);
+  delay(2000);
+}
+
+void loop() {
+  // --- 1. Girar a la DERECHA ---
+  // (Mueve Izquierda (8), para Derecha (4))
+  motor4.write(90);   // Pin 4: PARADO
+  motor8.write(0);    // Pin 8: ADELANTE (Sustituye al -180)
+  delay(400);
+
+  // --- 2. Ir RECTO ---
+  motor4.write(180);  // Pin 4: ADELANTE
+  motor8.write(0);    // Pin 8: ADELANTE
+  delay(6500);
+
+  // --- 3. Girar a la IZQUIERDA ---
+  // (Para Izquierda (8), mueve Derecha (4))
+  motor4.write(180);  // Pin 4: ADELANTE
+  motor8.write(90);   // Pin 8: PARADO
+  delay(850);
+
+  // --- 4. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(7000);
+
+  // --- 5. Girar a la DERECHA ---
+  motor4.write(90);
+  motor8.write(0);
+  delay(1050);
+
+  // --- 6. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(8500);
+
+  // --- 7. Girar a la IZQUIERDA ---
+  motor4.write(180);
+  motor8.write(90);
+  delay(900);
+
+  // --- 8. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(6000);
+
+  // --- 9. Girar a la DERECHA ---
+  motor4.write(90);
+  motor8.write(0);
+  delay(500);
+
+  // --- 10. Ir RECTO ---
+  motor4.write(180);
+  motor8.write(0);
+  delay(5000);
+
+  // Al finalizar la ruta, se detiene para no repetir en bucle loco
+  motor4.write(90);
+  motor8.write(90);
+  while(true); 
+}</pre>
                     </div>
                 </div>
             </div>
+
+            <!-- Robot 3: SPIDER (Full Code) -->
+            <div class="robot-card">
+                <div class="robot-header">
+                    <h3>03. Hexapod Spider</h3>
+                    <span class="tech-tag">Advanced Mobility</span>
+                </div>
+                <div class="robot-flex">
+                    <div class="robot-img-container">
+                        <img src="images/IMG_3208.jpeg" alt="Spider Robot">
+                    </div>
+                    <div class="robot-info">
+                        <p>A multi-legged robot designed for complex terrain using biomimetic programming.</p>
+                        <pre class="codigo-container">
+#include <setjmp.h>
+//#include "US.h"
+#include "OTTOKame.h"
+#include "MaxMatrix.h"
+MaxMatrix ledmatrix=MaxMatrix(A1,A2,A3, 1); //PIN  A1=DIN, PIN A2=CS, PIN A3=CLK
+//-- Library to manage serial commands
+#include <OttoSerialCommand.h>
+OttoSerialCommand SerialCmd;  //The SerialCommand object
+
+
+#define CAL_TRIGGER_PIN 10 // link this PIN 10 to +5V to enter set up mode
+#define LED_PIN 13
+#define PIN_Buzzer  13
+//#define PIN_NoiseSensor A6
+//#define battery A7
+#define TIME_INTERVAL 5000
+/*
+   (servo PIN CONNECTIONS)
+   __________ __________ _________________
+  |(pin9)_____)(pin8)  (pin2)(______(pin3)|
+  |__|       |left FRONT right|        |__|
+             |                |
+             |                |
+             |                |
+   _________ |                | __________
+  |(pin7)_____)(pin6)__(pin4)(______(pin5)|
+  |__|                                 |__|
+  
+ULTRASONIC PIN_Trigger 12
+ULTRASONIC PIN_Echo    11
+BUZZER PIN 13
+*/
+MiniKame robot;
+bool obstacleDetected = false;
+int T=1000;              //Initial duration of movement
+int moveId=0;            //Number of movement
+int modeId=0;            //Number of mode
+int moveSize=15;         //Asociated with the height of some movements
+bool auto_mode = false;
+bool random_walk = false;
+bool stopSerial = false;
+unsigned long cur_time, prev_serial_data_time, perv_sensor_time;
+char cmd = 's';
+static char prev_cmd = '.';
+const char programID[]="Otto_KAME7"; //Each program will have a ID
+jmp_buf jump_env;
+int randomDance=0;
+//---------------------------------------------------------
+//-- Otto has 5 modes:
+//--    * MODE = 0: Otto is awaiting  
+//--    * MODE = 1: Dancing mode!  
+//--    * MODE = 2: Obstacle detector mode  
+//--    * MODE = 3: Noise detector mode   
+//--    * MODE = 4: OttoPAD or any Teleoperation mode (listening SerialPort). 
+//---------------------------------------------------------
+volatile int MODE=4; //State of Otto in the principal state machine. 
+
+void setup() {
+  
+  //Serial communication initialization
+  Serial.begin(9600);  
+  // set up Matrix display
+  ledmatrix.init();
+  ledmatrix.setIntensity(1);
+
+  randomSeed(analogRead(A6));
+  //
+  robot.init(PIN_Buzzer);
+  delay(2000);
+  //MY servo 2 needed to be reversed so we do it here after the init 
+  //robot.reverseServo(0);
+  //robot.reverseServo(1);
+  robot.reverseServo(2);
+  //robot.reverseServo(3);
+  //robot.reverseServo(4);
+  //robot.reverseServo(5);
+  //robot.reverseServo(6);
+  //robot.reverseServo(7);
+  { //begin:  servo calibrating if PIN 10 is HIGH
+    bool state = true;
+    pinMode(CAL_TRIGGER_PIN, OUTPUT);
+    digitalWrite(CAL_TRIGGER_PIN, 0);
+    pinMode(CAL_TRIGGER_PIN, INPUT);
+    while (digitalRead(CAL_TRIGGER_PIN)) {
+       robot.home();//Otto HOME position
+      digitalWrite(LED_PIN, 1); // on calibrating SOUND BUZZER, sounds every 2 seconds
+      delay(100);
+      digitalWrite(LED_PIN, 0); // off calibrating STOP BUZZER
+      delay(2000);
+      robot.refresh();
+      state = !state;
+    }
+    digitalWrite(LED_PIN, 0); // off calibrating STOP BUZZER
+  }//end:
+  perv_sensor_time = prev_serial_data_time = millis();
+  //robot.run();
+  //robot.turnL();
+  //robot.turnR();
+  //robot.pushUp();
+  //robot.upDown();
+  //robot.dance();
+  //robot.frontBack();
+  //robot.moonwalkL();
+  //robot.omniWalk();
+  //robot.hello();
+  //robot.jump();
+  // Animation Uuuuuh - A little moment of initial surprise
+ //-----
+  for(int i=0; i<2; i++){
+      for (int i=0;i<8;i++){  
+        robot.putAnimationMouth(littleUuh,i);
+        delay(150);
+      }
+  }
+    //Smile for a happy Otto :)
+    robot.putMouth(smile);
+    robot.sing(S_happy);
+    delay(200);  
+
+    //Setup callbacks for SerialCommand commands 
+  SerialCmd.addCommand("S", receiveStop);      //  sendAck & sendFinalAck
+  SerialCmd.addCommand("L", receiveLED);       //  sendAck & sendFinalAck
+  SerialCmd.addCommand("M", receiveMovement);  //  sendAck & sendFinalAck
+  SerialCmd.addCommand("H", receiveGesture);   //  sendAck & sendFinalAck
+  SerialCmd.addCommand("K", receiveSing);      //  sendAck & sendFinalAck
+  SerialCmd.addCommand("D", requestDistance);
+  //SCmd.addCommand("B", requestBattery);   // 
+  SerialCmd.addCommand("I", requestProgramId);
+  SerialCmd.addCommand("J", requestMode);
+  SerialCmd.addDefaultHandler(receiveStop);
+}
+///////////////////////////////////////////////////////////////////
+//-- Principal Loop ---------------------------------------------//
+///////////////////////////////////////////////////////////////////
+void loop() {
+
+ if (Serial.available()>0 && MODE!=4){
+    SerialCmd.readSerial();  
+    //MODE=4;
+    robot.putMouth(happyOpen);
+  }
+  
+    switch (MODE) {
+
+      //-- MODE 0 - Otto is awaiting
+      //---------------------------------------------------------
+      case 0:
+      
+
+        break;
+      
+
+      //-- MODE 1 - Dance Mode!
+      //---------------------------------------------------------
+      case 1:
+        randomDance=random(5,15); //5,20
+       if (randomDance == 5) randomDance = 6;
+        robot.putMouth(random(10,21));
+        robot.home();//Otto stop
+        pause(750);
+        gaits(randomDance);
+        
+        pause(8000);
+        break;
+
+
+      //-- MODE 2 - Obstacle detector mode
+      //---------------------------------------------------------
+      case 2:
+       robot.run(0); //Otto walk straight
+            //robot.refresh();
+            robot.putMouth(smile);
+            pause(500);
+            obstacleDetector();
+            pause(500);
+            
+        if(obstacleDetected){
+
+             robot.home();//Otto stop
+             robot.putMouth(bigSurprise);
+             pause(3000);
+             robot.putMouth(xMouth);
+             robot.run(1); //Otto walk back
+             pause(3000);
+             robot.putMouth(sad);
+             robot.home();//Otto stop
+             pause(3000);
+             robot.turnL(1, 550);
+             pause(3000);
+             obstacleDetector();
+        }
+
+          robot.refresh();
+        break;
+
+
+      //-- MODE 3 - Noise detector mode
+      //---------------------------------------------------------  
+      case 3:
+       
+        
+        break;
+        
+
+      //-- MODE 4 - OttoPAD or any Teleoperation mode (listening SerialPort) 
+      //---------------------------------------------------------
+      case 4:
+
+        SerialCmd.readSerial();
+        
+        //If Otto is moving yet
+        if (robot.getRestState()==false){  
+          //move(moveId);
+         
+          gaits(moveId);
+        }
+
+         
+          
+       robot.refresh();
+      
+        break;      
+
+
+      default:
+          MODE=0;
+          break;
+    }
+
+}
+//////////////////////////////////////////////////////////////////////////
+void  gaits(int cmd) 
+{
+  
+  bool manualMode = false;
+    
+    bool taken = true;
+    if (prev_cmd == cmd) return;
+
+    switch (cmd) 
+    {
+      case 1:
+      //MiniKame::run(int dir, float steps, float T) 
+        robot.run(0);
+        break;
+      case 2:
+        robot.run(1);
+        break;
+      case 3:
+        robot.turnL(1, 550);
+        break;
+      case 4:
+        robot.turnR(1, 550);
+        break;
+      case 5:
+        robot.home();
+        break;
+      case 6:
+        robot.pushUp();
+        break;
+      case 7:
+        robot.upDown();
+        break;
+      case 8:
+        robot.waveHAND();
+        break;
+      case 9:
+        robot.Hide();
+        break;
+      case 10:
+        robot.omniWalk(true);
+        break;
+      case 11:
+        robot.omniWalk(false);
+        break;
+      case 12:
+        robot.dance(1, 1000);
+        break;
+      case 13:
+       robot.frontBack(1, 750);
+        break;
+      case 14:
+       robot.jump();
+        break;
+        case 15:
+       robot.scared();
+        break;
+
+      default:
+        taken = false;
+        manualMode = true;
+    }
+     if(!manualMode){
+    sendFinalAck();
+
+  }
+  if (taken) prev_cmd = cmd;
+  return taken;
+}
+////////////////////////////////////////////////////////////////////
+void pause(int period) 
+  {
+    long timeout = millis() + period;
+    do 
+      {
+      robot.refresh();
+    } 
+    while (millis() <= timeout);
+  }
+///////////////////////////////////////////////////////////////////
+//-- Functions --------------------------------------------------//
+///////////////////////////////////////////////////////////////////
+
+//-- Function to read distance sensor & to actualize obstacleDetected variable
+void obstacleDetector(){
+
+   int distance = robot.getDistance();
+
+        if(distance<15){
+          obstacleDetected = true;
+        }else{
+          obstacleDetected = false;
+        }
+}
+//-- Function to receive Stop command.
+void receiveStop(){
+
+    sendAck();
+    robot.home();
+    prev_cmd  = '.';
+    sendFinalAck();
+
+}
+//-- Function to send Ack comand (A)
+void sendAck(){
+
+  delay(30);
+
+  Serial.print(F("&&"));
+  Serial.print(F("A"));
+  Serial.println(F("%%"));
+  Serial.flush();
+}
+
+
+//-- Function to send final Ack comand (F)
+void sendFinalAck(){
+
+  delay(30);
+
+  Serial.print(F("&&"));
+  Serial.print(F("F"));
+  Serial.println(F("%%"));
+  Serial.flush();
+}
+//-- Function to receive movement commands
+void receiveMovement(){
+    sendAck();
+    
+    if (robot.getRestState()==true){
+        robot.setRestState(false);
+    }
+
+    robot.clearMouth();
+    //Definition of Movement Bluetooth commands
+    //M  MoveID  T   MoveSize  
+    char *arg; 
+    arg = SerialCmd.next(); 
+    if (arg != NULL) {
+      moveId=atoi(arg);
+      robot.putMouth(smile);
+      }
+    else{
+      robot.putMouth(xMouth); // bad command
+      delay(2000);
+      robot.clearMouth();
+      moveId=0; //stop
+    }
+    
+    arg = SerialCmd.next(); 
+    if (arg != NULL) {T=atoi(arg);}
+    else{
+      T=1000;
+    }
+
+    arg = SerialCmd.next(); 
+    if (arg != NULL) {moveSize=atoi(arg);}
+    else{
+      moveSize =15;
+    }
+}
+//-- Function to receive LED commands
+void receiveLED(){  
+
+    //sendAck & stop if necessary
+    sendAck();
+    robot.home();
+
+    //Examples of receiveLED Bluetooth commands
+    //L 000000001000010100100011000000000
+    //L 001111111111111111111111111111111 (todos los LED encendidos)
+    unsigned long int matrix;
+    char *arg;
+    char *endstr;
+    arg=SerialCmd.next();
+    //Serial.println (arg);
+    if (arg != NULL) {
+      matrix=strtoul(arg,&endstr,2);    // Converts a char string to unsigned long integer
+      robot.putMouth(matrix,false);
+    }else{
+      robot.putMouth(xMouth); // bad command
+      delay(2000);
+      robot.clearMouth();
+    }
+
+    sendFinalAck();
+
+}
+//-- Function to receive sing commands
+void receiveSing() {
+  //sendAck & stop if necessary
+  sendAck();
+   robot.home();
+
+  //Definition of Sing Bluetooth commands
+  //K  SingID
+  int sing = 0;
+  char *arg;
+  arg = SerialCmd.next();
+  if (arg != NULL) sing = atoi(arg);
+  else  {
+  robot.putMouth(xMouth); // bad command   
+  delay(2000); // 
+  robot.clearMouth();
+  }
+  
+
+  switch (sing) {
+    case 1: //K 1
+      robot.sing(S_connection);
+      break;
+    case 2: //K 2
+      robot.sing(S_disconnection);
+      break;
+    case 3: //K 3
+      robot.sing(S_surprise);
+      break;
+    case 4: //K 4
+      robot.sing(S_OhOoh);
+      break;
+    case 5: //K 5
+      robot.sing(S_OhOoh2);
+      break;
+    case 6: //K 6
+      robot.sing(S_cuddly);
+      break;
+    case 7: //K 7
+      robot.sing(S_sleeping);
+      break;
+    case 8: //K 8
+      robot.sing(S_happy);
+      break;
+    case 9: //K 9
+      robot.sing(S_superHappy);
+      break;
+    case 10: //K 10
+      robot.sing(S_happy_short);
+      break;
+    case 11: //K 11
+      robot.sing(S_sad);
+      break;
+    case 12: //K 12
+      robot.sing(S_confused);
+      break;
+    case 13: //K 13
+      robot.sing(S_fart1);
+      break;
+    case 14: //K 14
+      robot.sing(S_fart2);
+      break;
+    case 15: //K 15
+      robot.sing(S_fart3);
+      break;
+    case 16: //K 16
+      robot.sing(S_mode1);
+      break;
+    case 17: //K 17
+      robot.sing(S_mode2);
+      break;
+    case 18: //K 18
+      robot.sing(S_mode3);
+      break;
+    case 19: //K 19
+      robot.sing(S_buttonPushed);
+      break;
+    default:
+      break;
+  }
+  sendFinalAck();
+}
+
+//-- Function to send ultrasonic sensor measure (distance in "cm")
+void requestDistance(){
+
+    robot.home();  //stop if necessary  
+
+    int distance = robot.getDistance();
+    Serial.print(F("&&"));
+    Serial.print(F("D "));
+    Serial.print(distance);
+    Serial.println(F("%%"));
+    Serial.flush();
+}
+//-- Function to send battery voltage percent
+void requestBattery(){
+
+    robot.home();  //stop if necessary
+
+    //The first read of the batery is often a wrong reading, so we will discard this value. 
+    double batteryLevel = robot.getBatteryLevel();
+
+    Serial.print(F("&&"));
+    Serial.print(F("B "));
+    Serial.print(batteryLevel);
+    Serial.println(F("%%"));
+    Serial.flush();
+}
+
+
+//-- Function to send program ID
+void requestProgramId(){
+
+    robot.home();   //stop if necessary
+
+    Serial.print(F("&&"));
+    Serial.print(F("I "));
+    Serial.print(programID);
+    Serial.println(F("%%"));
+    Serial.flush();
+}
+//-- Function to receive mode selection.
+void requestMode(){
+
+    sendAck();
+    robot.home();
+    //Definition of Mode Bluetooth commands
+    //J ModeID    
+    char *arg; 
+    arg = SerialCmd.next(); 
+    if (arg != NULL) 
+    {
+      modeId=atoi(arg);
+      robot.putMouth(heart);
+      delay(1000);
+      robot.clearMouth();
+      }
+    else{
+      robot.putMouth(xMouth); // bad command
+      delay(2000);
+      robot.clearMouth();
+      modeId=0; //stop
+    }
+switch (modeId) {
+      case 0: //
+        MODE = 0;
+        break;
+      case 1: //
+        MODE = 1;
+        robot.sing(S_mode1);
+        robot.putMouth(one);
+        delay(1000);
+    delay(200);
+        break;
+        case 2: //
+        MODE = 2;
+        robot.sing(S_mode2);
+        robot.putMouth(two);
+        delay(1000);
+        break;
+        case 3: //
+        MODE = 3;
+        robot.sing(S_mode3);
+        robot.putMouth(three);
+        delay(1000);        
+        break;
+        case 4: //
+        robot.sing(S_mode1);
+        robot.putMouth(four);
+        delay(1000);       
+        MODE = 4;
+        break;
+     default:
+        MODE = 0;
+        break;
+   }
+sendFinalAck();
+robot.clearMouth();
+robot.putMouth(smile);
+
+}
+ 
+//-- Function to receive gesture commands
+void receiveGesture(){
+
+    //sendAck & stop if necessary
+    sendAck();
+    robot.home(); 
+
+    //Definition of Gesture Bluetooth commands
+    //H  GestureID  
+    int gesture = 0;
+    char *arg; 
+    arg = SerialCmd.next(); 
+    if (arg != NULL) {gesture=atoi(arg);}
+    else 
+    {
+      robot.putMouth(xMouth);
+      delay(2000);
+      robot.clearMouth();
+    }
+
+    switch (gesture) {
+      case 1: //H 1 
+        robot.playGesture(OttoHappy);
+        break;
+      case 2: //H 2 
+        robot.playGesture(OttoSuperHappy);
+        break;
+      case 3: //H 3 
+        robot.playGesture(OttoSad);
+        break;
+      
+      case 7: //H 7 
+        robot.playGesture(OttoLove);
+        break;   
+      
+        
+      default:
+        break;
+    }
+
+    sendFinalAck();
+}
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Robot 4: OTTO NINJA (Full Code) -->
+            <div class="robot-card">
+                <div class="robot-header">
+                    <h3>04. Otto Ninja</h3>
+                    <span class="tech-tag">Humanoid Design</span>
+                </div>
+                <div class="robot-flex">
+                    <div class="robot-img-container">
+                        <img src="images/IMG_3173.jpeg" alt="Otto Ninja Robot">
+                    </div>
+                    <div class="robot-info">
+                        <p>A bipedal robot capable of walking, dancing, and making sounds via Bluetooth control.</p>
+                        <pre class="codigo-container">
+#include &lt;Servo.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+SoftwareSerial BT(8, 9);
+Servo caderaIzq, caderaDer, pieDer, pieIzq, brazoIzq, cabeza, brazoDer;
+void setup() {
+  caderaIzq.attach(4); caderaDer.attach(5); pieDer.attach(7); pieIzq.attach(6);
+  brazoIzq.attach(10); cabeza.attach(12); brazoDer.attach(13);
+  BT.begin(9600);
+}
+void loop() {
+  if (BT.available()) {
+    char cmd = BT.read();
+    if(cmd == 'w') { caderaIzq.write(0); caderaDer.write(180); pieIzq.write(180); pieDer.write(0); }
+    if(cmd == ' ') { pieIzq.write(90); pieDer.write(90); }
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
     <!-- PURPOSE SECTION -->
     <main class="contenido" id="sistemas">
         <section>
-            <h2>What is our purpose?</h2>
-            <p>Our goal is to demonstrate our technical problem-solving capacity in a high-pressure environment. In just <b>3 weeks</b>, we have achieved what seemed impossible: assembling, programming, and deploying a functional fleet of robots controlled both autonomously and via remote systems.</p>
-            <p>This project represents the culmination of our learning in SMR1, uniting networks, programming, and physical assembly into a single technical success.</p>
+            <h2 style="text-align: center; font-size: 2.5rem;">Purpose & Achievements</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Our purpose is to master robotics and cybersecurity under pressure. In just <b>3 weeks</b>, we have achieved:</p>
+            <ul style="max-width: 600px; margin: 0 auto; line-height: 1.8;">
+                <li>Assembly and calibration of 4 complex robots.</li>
+                <li>Programming of <b>over 800 lines of code</b> in C++ and Arduino.</li>
+                <li>Deployment of a secure network infrastructure with WPA3.</li>
+                <li>Development of this multi-language professional landing page.</li>
+            </ul>
         </section>
     </main>
 
-    <!-- CONTACT -->
+    <!-- CONTACT SECTION -->
     <section id="Redes" class="contacto-container">
         <div class="contacto-info">
-            <h2>Contact Us</h2>
+            <h2 style="font-size: 2.5rem; color: white;">Contact Us</h2>
             <div class="redes-sociales">
-                <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link"><span>📱</span> TikTok</a>
+                <a href="https://www.tiktok.com/@barcelofc.23" target="_blank" class="tiktok-link">
+                    <span style="margin-right: 8px;">📱</span> TikTok Official
+                </a>
             </div>
         </div>
         <form class="formulario-contacto" action="mailto:barcelofc89@gmail.com" method="post" enctype="text/plain">
-            <input type="text" name="nombre" placeholder="Your name" required>
-            <input type="email" name="email" placeholder="Your email" required>
-            <textarea name="mensaje" placeholder="Write here..." rows="5" required></textarea>
-            <button type="submit">Send Message</button>
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Message..." rows="5" required></textarea>
+            <button type="submit">Send to Barceló FC</button>
         </form>
     </section>
 
     <footer class="PiePagina">
-        <div class="footer-content">
+        <div class="footer-content" style="text-align: center; padding: 20px;">
             <p>&copy; 2026 Barceló FC - ALMI Bilbao</p>
         </div>
     </footer>
